@@ -32,6 +32,7 @@ body {
   color: var(--color-papel);
   background: var(--color-tinta);
   text-align: center;
+  text-wrap: balance;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -64,17 +65,45 @@ ul {
 h1,
 h2,
 h3,
+h4,
+p,
+li,
+summary,
+label,
+blockquote,
+figcaption,
+td,
+th,
+.btn,
+.eyebrow,
+.module__desc,
+.bonus__desc,
+.section__lead,
+.hero__intro,
+.hero__trust,
+.about__bio,
+.about__role,
+.faq__item p,
+.offer__includes li,
+.final-cta__ps,
+.final-cta__trust,
+.site-footer__copy,
+.site-footer__legal {
+  text-wrap: balance;
+}
+
+h1,
+h2,
+h3,
 h4 {
   font-family: var(--font-display);
   font-weight: 400;
   line-height: 1.15;
   margin: 0;
-  text-wrap: balance;
 }
 
 p {
   margin: 0;
-  text-wrap: pretty;
 }
 
 .sr-only {
