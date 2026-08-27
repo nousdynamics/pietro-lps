@@ -396,19 +396,20 @@
 }
 
 .about__avatar {
-  width: 8.5rem;
-  height: 8.5rem;
+  width: 10.5rem;
+  height: 10.5rem;
   margin: 0 auto var(--space-md);
   border-radius: 50%;
   border: 1.5px solid var(--color-ouro);
-  display: grid;
-  place-items: center;
+  overflow: hidden;
   background: color-mix(in srgb, var(--color-tinta) 6%, white);
 }
 
-.about__avatar svg {
-  width: 3.5rem;
-  height: 3.5rem;
+.about__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
 }
 
 .about__name {
