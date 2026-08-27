@@ -284,24 +284,22 @@
 .modules {
   display: grid;
   gap: var(--space-md);
-  max-width: 64rem;
   margin: 0 auto var(--space-xl);
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 350px);
+  justify-content: center;
+  width: 100%;
 }
 
-@media (min-width: 640px) {
+@media (min-width: 760px) {
   .modules {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-@media (min-width: 1024px) {
-  .modules {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 350px));
   }
 }
 
 .module {
+  width: 100%;
+  max-width: 350px;
+  margin-inline: auto;
   padding: var(--space-lg) var(--space-md);
   border-radius: var(--radius-md);
   border: 1px solid color-mix(in srgb, var(--color-nevoa) 20%, transparent);
@@ -332,18 +330,22 @@
 .bonuses {
   display: grid;
   gap: var(--space-md);
-  max-width: 64rem;
   margin-inline: auto;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 350px);
+  justify-content: center;
+  width: 100%;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 760px) {
   .bonuses {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 350px));
   }
 }
 
 .bonus {
+  width: 100%;
+  max-width: 350px;
+  margin-inline: auto;
   padding: var(--space-lg);
   border-radius: var(--radius-md);
   background: color-mix(in srgb, var(--color-ouro) 10%, transparent);
@@ -534,16 +536,28 @@
 
 /* ——— FAQ ——— */
 .faq {
-  max-width: 40rem;
+  display: grid;
+  gap: var(--space-md);
   margin-inline: auto;
+  grid-template-columns: minmax(0, 350px);
+  justify-content: center;
+  width: 100%;
   text-align: center;
 }
 
+@media (min-width: 760px) {
+  .faq {
+    grid-template-columns: repeat(2, minmax(0, 350px));
+  }
+}
+
 .faq__item {
+  width: 100%;
+  max-width: 350px;
+  margin-inline: auto;
   border: 1px solid color-mix(in srgb, var(--color-nevoa) 55%, transparent);
   border-radius: var(--radius-md);
   background: white;
-  margin-bottom: var(--space-sm);
   overflow: hidden;
 }
 
