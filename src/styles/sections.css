@@ -112,20 +112,10 @@
   .hero__benefits {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: var(--space-md) 0;
+    gap: var(--space-md) var(--space-sm);
   }
 
   .hero__benefits li:nth-child(2n)::after {
-    display: none;
-  }
-}
-
-@media (max-width: 520px) {
-  .hero__benefits {
-    grid-template-columns: 1fr;
-  }
-
-  .hero__benefits li::after {
     display: none;
   }
 }
@@ -137,6 +127,108 @@
   font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+
+/* Mobile hero: compact hierarchy, less vertical stretch */
+@media (max-width: 640px) {
+  .hero {
+    padding: 1.5rem 0 2.75rem;
+  }
+
+  .hero .container {
+    width: min(100% - 1.25rem, var(--max-w-wide));
+  }
+
+  .logo--text {
+    margin-bottom: 0.75rem;
+  }
+
+  .hero .logo__word {
+    font-size: 0.78rem;
+    letter-spacing: 0.16em;
+    line-height: 1.2;
+  }
+
+  .hero .logo__word span {
+    display: inline;
+  }
+
+  .hero .logo__word span:first-child::after {
+    content: " ";
+  }
+
+  .hero__title {
+    max-width: none;
+    margin-bottom: 1.25rem;
+    padding-inline: 0.15rem;
+    font-size: clamp(1.28rem, 6.2vw, 1.7rem);
+    line-height: 1.28;
+    letter-spacing: -0.01em;
+  }
+
+  .vsl {
+    width: 100%;
+    border-radius: var(--radius-md);
+  }
+
+  .vsl__facade,
+  .vsl iframe {
+    border-radius: var(--radius-md);
+  }
+
+  .vsl__play {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+
+  .vsl__label {
+    bottom: 0.75rem;
+    font-size: 0.72rem;
+  }
+
+  .hero__intro {
+    margin: 1.15rem auto 0.75rem;
+    font-size: 0.92rem;
+    line-height: 1.45;
+  }
+
+  .hero__benefits {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.55rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .hero__benefits li {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: start;
+    gap: 0.55rem;
+    padding: 0.55rem 0.65rem;
+    border-radius: var(--radius-sm);
+    background: color-mix(in srgb, var(--color-papel) 4%, transparent);
+    border: 1px solid color-mix(in srgb, var(--color-nevoa) 12%, transparent);
+    font-size: 0.8125rem;
+    line-height: 1.4;
+    text-align: left;
+  }
+
+  .hero__benefits li::before {
+    width: 0.35rem;
+    height: 0.35rem;
+    margin: 0.4rem 0 0;
+  }
+
+  .hero__benefits li::after {
+    display: none;
+  }
+
+  .hero__trust {
+    margin-top: 0.85rem;
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    line-height: 1.4;
+  }
 }
 
 /* ——— YouTube facade ——— */
