@@ -25,7 +25,7 @@
 /* ——— Hero ——— */
 .hero {
   position: relative;
-  padding: 12px 0 var(--space-12);
+  padding: 12px 0 var(--section-y);
   overflow: hidden;
   background: radial-gradient(125% 125% at 50% 10%, #000 42%, var(--color-ouro) 100%);
 }
@@ -46,23 +46,15 @@
   color: #fff;
 }
 
-/* ——— Benefícios (dourado, pós-hero) ——— */
-.section--ouro {
-  background: var(--color-ouro);
-  color: #14121b;
-  padding-block: var(--space-12);
-}
-
-.beneficios__intro {
+.hero__intro {
   max-width: 34rem;
-  margin: 0 auto var(--stack-normal);
-  color: #14121b;
-  font-size: 1.05rem;
-  font-weight: 600;
+  margin: var(--stack-loose) auto var(--stack-normal);
+  color: var(--text-on-dark-muted);
+  font-size: 0.98rem;
   line-height: 1.55;
 }
 
-.beneficios__list {
+.hero__benefits {
   display: flex;
   flex-wrap: nowrap;
   justify-content: center;
@@ -73,60 +65,58 @@
   padding: 0;
 }
 
-.beneficios__list li {
+.hero__benefits li {
   flex: 1 1 0;
   position: relative;
   padding: var(--space-2) var(--space-4);
-  color: #14121b;
-  font-size: 0.875rem;
+  color: var(--text-on-dark-subtle);
+  font-size: 0.8125rem;
   line-height: 1.45;
   text-align: center;
 }
 
-.beneficios__list li:not(:last-child)::after {
+.hero__benefits li:not(:last-child)::after {
   content: "";
   position: absolute;
   top: var(--space-2);
   right: 0;
   bottom: var(--space-2);
   width: 1px;
-  background: color-mix(in srgb, #14121b 28%, transparent);
+  background: var(--stroke-subtle-dark);
 }
 
-.beneficios__list li::before {
+.hero__benefits li::before {
   content: "";
   display: block;
   width: 0.35rem;
   height: 0.35rem;
   margin: 0 auto var(--space-2);
   border-radius: 50%;
-  background: #14121b;
+  background: var(--color-ouro);
 }
 
-.beneficios__trust {
+.hero__trust {
   margin-top: var(--stack-normal);
-  color: #14121b;
+  color: var(--text-on-dark-subtle);
   font-size: 0.72rem;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0.07em;
   text-transform: uppercase;
   line-height: 1.45;
-  opacity: 0.85;
 }
 
 @media (min-width: 641px) and (max-width: 860px) {
-  .beneficios__list {
+  .hero__benefits {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: var(--gap-grid);
   }
 
-  .beneficios__list li:nth-child(2n)::after {
+  .hero__benefits li:nth-child(2n)::after {
     display: none;
   }
 }
 
-/* Mobile hero + benefícios */
 @media (max-width: 640px) {
   .hero {
     padding: 12px 0 var(--space-10);
@@ -158,42 +148,39 @@
     font-size: 0.7rem;
   }
 
-  .section--ouro {
-    padding-block: var(--space-10);
+  .hero__intro {
+    margin: var(--stack-normal) auto var(--stack-tight);
+    font-size: 0.9rem;
   }
 
-  .beneficios__intro {
-    font-size: 0.95rem;
-  }
-
-  .beneficios__list {
+  .hero__benefits {
     display: grid;
     grid-template-columns: 1fr;
     gap: var(--space-2);
     margin-bottom: var(--stack-tight);
   }
 
-  .beneficios__list li {
+  .hero__benefits li {
     display: grid;
     grid-template-columns: auto 1fr;
     align-items: start;
     gap: var(--space-3);
     padding: var(--space-3);
     border-radius: var(--radius-sm);
-    background: color-mix(in srgb, #14121b 8%, transparent);
-    border: 1px solid color-mix(in srgb, #14121b 18%, transparent);
+    background: var(--surface-card-dark);
+    border: 1px solid var(--stroke-subtle-dark);
     text-align: left;
   }
 
-  .beneficios__list li::before {
+  .hero__benefits li::before {
     margin: 0.35rem 0 0;
   }
 
-  .beneficios__list li::after {
+  .hero__benefits li::after {
     display: none;
   }
 
-  .beneficios__trust {
+  .hero__trust {
     margin-top: var(--stack-tight);
     font-size: 0.65rem;
   }
@@ -279,6 +266,20 @@
 }
 
 /* ——— Antes / Depois ——— */
+.section--ouro {
+  background: var(--color-ouro);
+  color: #14121b;
+}
+
+.section--ouro .section__title {
+  color: #14121b;
+}
+
+.section--ouro .section__lead {
+  color: #14121b;
+  opacity: 0.88;
+}
+
 .compare {
   display: grid;
   gap: var(--gap-grid-lg);
@@ -296,25 +297,30 @@
 .compare__card {
   padding: var(--card-padding-lg);
   border-radius: var(--radius-lg);
-  background: var(--surface-raised-light);
-  border: 1px solid var(--stroke-subtle-light);
+  background: #fff;
+  border: 1px solid color-mix(in srgb, #14121b 12%, transparent);
   text-align: center;
+  color: #14121b;
 }
 
 .compare__card--after {
-  background: var(--surface-page-dark);
-  color: var(--text-on-dark);
-  border-color: var(--stroke-accent);
+  background: #14121b;
+  color: #fff;
+  border-color: #14121b;
 }
 
 .compare__label {
   display: inline-block;
   margin-bottom: var(--stack-normal);
-  color: var(--text-accent);
+  color: #14121b;
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
+}
+
+.compare__card--after .compare__label {
+  color: var(--color-ouro);
 }
 
 .compare__card ul {
@@ -324,8 +330,8 @@
 
 .compare__card li {
   padding-top: var(--stack-normal);
-  border-top: 1px solid var(--stroke-subtle-light);
-  color: var(--text-on-light-muted);
+  border-top: 1px solid color-mix(in srgb, #14121b 18%, transparent);
+  color: #14121b;
   font-size: 0.9375rem;
   line-height: 1.55;
 }
@@ -336,8 +342,8 @@
 }
 
 .compare__card--after li {
-  border-top-color: var(--stroke-subtle-dark);
-  color: var(--text-on-dark-muted);
+  border-top-color: color-mix(in srgb, #fff 18%, transparent);
+  color: color-mix(in srgb, #fff 88%, transparent);
 }
 
 /* ——— Modules ——— */
@@ -719,10 +725,6 @@
   border-radius: var(--radius-lg);
   border: 1px solid var(--stroke-accent-soft);
   background: transparent;
-}
-
-.final-cta__box .eyebrow {
-  margin-bottom: var(--stack-normal);
 }
 
 .final-cta__box .section__title {
