@@ -41,7 +41,6 @@
 }
 
 .hero__title {
-  max-width: min(100%, var(--max-w-hero));
   width: 100%;
   margin-inline: auto;
   margin-bottom: var(--stack-loose);
