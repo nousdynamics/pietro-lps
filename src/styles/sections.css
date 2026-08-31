@@ -123,8 +123,7 @@
 @media (max-width: 640px) {
   .hero {
     padding: 12px 0 var(--space-10);
-    /* Keep gold glow lower so benefit text stays on dark for contrast */
-    background: radial-gradient(140% 70% at 50% 100%, #c79a52 0%, #14121b 55%);
+    background: #14121b;
   }
 
   .hero .container {
