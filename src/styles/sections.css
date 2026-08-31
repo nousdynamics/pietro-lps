@@ -25,7 +25,7 @@
 /* ——— Hero ——— */
 .hero {
   position: relative;
-  padding: var(--space-10) 0 var(--section-y);
+  padding: 12px 0 var(--section-y);
   overflow: hidden;
 }
 
@@ -129,7 +129,7 @@
 /* Mobile hero */
 @media (max-width: 640px) {
   .hero {
-    padding: var(--space-6) 0 var(--space-10);
+    padding: 12px 0 var(--space-10);
   }
 
   .hero .container {
