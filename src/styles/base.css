@@ -29,8 +29,8 @@ body {
   font-family: var(--font-body);
   font-size: 1.0625rem;
   line-height: 1.65;
-  color: var(--color-papel);
-  background: var(--color-tinta);
+  color: var(--text-on-dark);
+  background: var(--surface-page-dark);
   text-align: center;
   text-wrap: balance;
   -webkit-font-smoothing: antialiased;
@@ -100,6 +100,7 @@ h4 {
   font-weight: 400;
   line-height: 1.15;
   margin: 0;
+  color: inherit;
 }
 
 p {
@@ -119,92 +120,120 @@ p {
 }
 
 .container {
-  width: min(100% - 2rem, var(--max-w-wide));
+  width: min(calc(100% - 2 * var(--container-gutter)), var(--max-w-wide));
   margin-inline: auto;
 }
 
 .container--narrow {
-  width: min(100% - 2rem, var(--max-w));
+  width: min(calc(100% - 2 * var(--container-gutter)), var(--max-w));
+}
+
+/* Section header stack: eyebrow → title → lead */
+.section__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--stack-normal);
+  margin-bottom: var(--stack-section);
 }
 
 .eyebrow {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  margin-bottom: var(--space-md);
-  padding: 0.4rem 0.9rem;
-  border: 1px solid color-mix(in srgb, var(--color-ouro) 45%, transparent);
+  gap: var(--space-2);
+  margin-bottom: 0;
+  padding: 0.45rem 0.95rem;
+  border: 1px solid var(--stroke-accent-soft);
   border-radius: var(--radius-pill);
-  color: var(--color-ouro);
-  font-size: 0.75rem;
+  color: var(--text-accent);
+  font-size: 0.72rem;
   font-weight: 600;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.11em;
   text-transform: uppercase;
 }
 
 .eyebrow::before {
   content: "";
-  width: 0.35rem;
-  height: 0.35rem;
+  width: 0.3rem;
+  height: 0.3rem;
   border-radius: 50%;
-  background: var(--color-ouro);
+  background: currentColor;
 }
 
 .section {
-  padding-block: var(--space-2xl);
+  padding-block: var(--section-y);
 }
 
 .section--papel {
-  background: var(--color-papel);
-  color: var(--color-tinta);
+  background: var(--surface-page-light);
+  color: var(--text-on-light);
 }
 
 .section--papel .eyebrow {
-  color: var(--color-grafite);
-  border-color: color-mix(in srgb, var(--color-grafite) 35%, transparent);
+  color: var(--text-on-light-muted);
+  border-color: var(--stroke-subtle-light);
 }
 
 .section--papel .eyebrow::before {
-  background: var(--color-ouro);
+  background: var(--text-accent);
 }
 
 .section__title {
-  font-size: clamp(1.85rem, 4vw, 2.75rem);
-  margin-bottom: var(--space-md);
+  font-size: clamp(1.75rem, 3.8vw, 2.65rem);
+  margin-bottom: 0;
+  line-height: 1.18;
 }
 
 .section__lead {
   max-width: 36rem;
   margin-inline: auto;
-  margin-bottom: var(--space-xl);
-  color: var(--color-nevoa);
-  font-size: 1.05rem;
+  margin-bottom: 0;
+  color: var(--text-on-dark-muted);
+  font-size: 1rem;
+  line-height: 1.6;
 }
 
 .section--papel .section__lead {
-  color: var(--color-grafite);
+  color: var(--text-on-light-muted);
+}
+
+/* Vertical rhythm inside section containers */
+.section .container > .eyebrow {
+  margin-bottom: var(--stack-normal);
+}
+
+.section .container > .section__title {
+  margin-bottom: var(--stack-normal);
+}
+
+.section .container > .section__lead {
+  margin-bottom: var(--stack-section);
+}
+
+.section .container > .fade-in + .fade-in.section__title {
+  margin-top: 0;
 }
 
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 3.25rem;
-  padding: 0.9rem 1.75rem;
+  min-height: 3.125rem;
+  min-width: 3rem;
+  padding: 0.875rem 1.625rem;
   border-radius: var(--radius-pill);
   border: 1.5px solid var(--color-ouro);
-  color: var(--color-papel);
+  color: var(--text-on-dark);
   background: transparent;
-  font-size: 0.8125rem;
+  font-size: 0.78rem;
   font-weight: 600;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.055em;
   text-transform: uppercase;
   transition:
     background var(--transition),
     color var(--transition),
-    border-color var(--transition),
-    transform var(--transition);
+    border-color var(--transition);
 }
 
 .btn:hover,
@@ -215,7 +244,7 @@ p {
 }
 
 .btn:focus-visible {
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-ouro) 40%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-ouro) 35%, transparent);
 }
 
 .btn--solid {
@@ -225,27 +254,27 @@ p {
 
 .btn--solid:hover,
 .btn--solid:focus-visible {
-  background: color-mix(in srgb, var(--color-ouro) 88%, white);
-  border-color: color-mix(in srgb, var(--color-ouro) 88%, white);
+  background: color-mix(in srgb, var(--color-ouro) 90%, white);
+  border-color: color-mix(in srgb, var(--color-ouro) 90%, white);
 }
 
 .btn--dark {
   border-color: var(--color-tinta);
-  color: var(--color-tinta);
+  color: var(--text-on-light);
 }
 
 .btn--dark:hover,
 .btn--dark:focus-visible {
   background: var(--color-tinta);
-  color: var(--color-papel);
+  color: var(--text-on-dark);
 }
 
 .fade-in {
   opacity: 0;
-  transform: translateY(1.25rem);
+  transform: translateY(1rem);
   transition:
-    opacity 0.7s ease,
-    transform 0.7s ease;
+    opacity 0.65s ease,
+    transform 0.65s ease;
 }
 
 .fade-in.is-visible {
