@@ -705,16 +705,6 @@
 .final-cta {
   position: relative;
   padding-block: var(--section-y);
-  overflow: hidden;
-}
-
-.final-cta::before {
-  content: "";
-  position: absolute;
-  inset: 12% 18%;
-  border-radius: 50%;
-  background: radial-gradient(circle, color-mix(in srgb, var(--color-ouro) 14%, transparent), transparent 72%);
-  pointer-events: none;
 }
 
 .final-cta__box {
@@ -725,7 +715,7 @@
   padding: var(--card-padding-lg);
   border-radius: var(--radius-lg);
   border: 1px solid var(--stroke-accent-soft);
-  background: var(--surface-raised-dark);
+  background: transparent;
 }
 
 .final-cta__box .eyebrow {
