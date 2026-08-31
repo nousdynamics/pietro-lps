@@ -657,26 +657,17 @@
 
 /* ——— FAQ ——— */
 .faq {
-  display: grid;
-  gap: var(--gap-grid);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  max-width: 40rem;
   margin-inline: auto;
-  grid-template-columns: minmax(0, var(--card-width));
-  justify-content: center;
   width: 100%;
-  text-align: center;
-}
-
-@media (min-width: 760px) {
-  .faq {
-    grid-template-columns: repeat(2, minmax(0, var(--card-width)));
-    gap: var(--gap-grid-lg);
-  }
+  text-align: left;
 }
 
 .faq__item {
   width: 100%;
-  max-width: var(--card-width);
-  margin-inline: auto;
   border: 1px solid var(--stroke-subtle-light);
   border-radius: var(--radius-md);
   background: var(--surface-card-light);
@@ -691,11 +682,15 @@
 .faq__item summary {
   list-style: none;
   cursor: pointer;
-  padding: var(--space-5) var(--space-10) var(--space-5) var(--space-5);
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-5);
   font-weight: 600;
   color: var(--text-on-light);
   position: relative;
-  text-align: center;
+  text-align: left;
   font-size: 0.9375rem;
   line-height: 1.45;
 }
@@ -705,8 +700,6 @@
 }
 
 .faq__num {
-  display: block;
-  margin-bottom: var(--space-2);
   color: var(--text-accent);
   font-size: 0.75rem;
   font-weight: 700;
@@ -714,28 +707,25 @@
 }
 
 .faq__chevron {
-  position: absolute;
-  right: var(--space-5);
-  top: 50%;
   width: 0.6rem;
   height: 0.6rem;
-  margin-top: -0.18rem;
   border-right: 2px solid var(--text-on-light-muted);
   border-bottom: 2px solid var(--text-on-light-muted);
   transform: rotate(45deg);
   transition: transform var(--transition);
+  justify-self: end;
 }
 
 .faq__item[open] .faq__chevron {
   transform: rotate(225deg);
-  margin-top: 0.08rem;
 }
 
 .faq__item p {
-  padding: 0 var(--space-5) var(--space-5);
+  padding: 0 var(--space-5) var(--space-5) calc(var(--space-5) + 1.75rem);
   color: var(--text-on-light-muted);
   font-size: 0.9rem;
   line-height: 1.55;
+  text-align: left;
 }
 
 .faq__item summary:focus-visible {
