@@ -123,6 +123,8 @@
 @media (max-width: 640px) {
   .hero {
     padding: 12px 0 var(--space-10);
+    /* Keep gold glow lower so benefit text stays on dark for contrast */
+    background: radial-gradient(140% 70% at 50% 100%, #c79a52 0%, #14121b 55%);
   }
 
   .hero .container {
@@ -153,31 +155,34 @@
   .hero__intro {
     margin: var(--stack-normal) auto var(--stack-tight);
     font-size: 0.9rem;
+    color: #fff;
   }
 
   .hero__benefits {
     display: grid;
     grid-template-columns: 1fr;
-    gap: var(--space-2);
+    gap: 0;
     margin-bottom: var(--stack-tight);
   }
 
   .hero__benefits li {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    align-items: start;
-    gap: var(--space-3);
-    padding: var(--space-3);
-    border-radius: var(--radius-sm);
-    background: var(--surface-card-dark);
-    border: 1px solid var(--stroke-subtle-dark);
-    text-align: left;
+    display: block;
+    padding: var(--space-4) 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    text-align: center;
+    color: #fff;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    border-bottom: 1px solid color-mix(in srgb, #fff 22%, transparent);
   }
 
-  .hero__benefits li::before {
-    margin: 0.35rem 0 0;
+  .hero__benefits li:last-child {
+    border-bottom: 0;
   }
 
+  .hero__benefits li::before,
   .hero__benefits li::after {
     display: none;
   }
@@ -185,6 +190,7 @@
   .hero__trust {
     margin-top: var(--stack-tight);
     font-size: 0.65rem;
+    color: color-mix(in srgb, #fff 78%, transparent);
   }
 }
 
