@@ -27,8 +27,12 @@
   position: relative;
   padding: 12px 0 var(--section-y);
   overflow: hidden;
-  /* From Tailwind snippet: radial-gradient(125% 125% at 50% 10%, #000 40%, #63e 100%) */
-  background: radial-gradient(125% 125% at 50% 10%, #000 40%, #6633ee 100%);
+  /* Same radial structure as the component snippet, brand colors */
+  background: radial-gradient(
+    125% 125% at 50% 10%,
+    var(--color-tinta) 40%,
+    var(--color-ouro) 100%
+  );
 }
 
 .hero__inner {
