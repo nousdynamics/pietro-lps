@@ -683,7 +683,7 @@
   list-style: none;
   cursor: pointer;
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: 1fr auto;
   align-items: center;
   gap: var(--space-3);
   padding: var(--space-4) var(--space-5);
@@ -697,13 +697,6 @@
 
 .faq__item summary::-webkit-details-marker {
   display: none;
-}
-
-.faq__num {
-  color: var(--text-accent);
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
 }
 
 .faq__chevron {
@@ -721,7 +714,7 @@
 }
 
 .faq__item p {
-  padding: 0 var(--space-5) var(--space-5) calc(var(--space-5) + 1.75rem);
+  padding: 0 var(--space-5) var(--space-5);
   color: var(--text-on-light-muted);
   font-size: 0.9rem;
   line-height: 1.55;
