@@ -27,7 +27,12 @@
   position: relative;
   padding: 12px 0 var(--section-y);
   overflow: hidden;
-  background: radial-gradient(125% 125% at 50% 10%, #000 42%, var(--color-ouro) 100%);
+  background: radial-gradient(
+    125% 125% at 50% 10%,
+    #000 38%,
+    #6633ee 72%,
+    var(--color-ouro) 100%
+  );
 }
 
 .hero__inner {
