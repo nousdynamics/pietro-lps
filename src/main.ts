@@ -83,14 +83,17 @@ function onContentRevealed(): void {
   const gated = document.getElementById("lp-gated");
   const heroPitch = document.getElementById("hero-pitch-gated");
   const heroTrust = document.getElementById("hero-trust-gated");
+  const heroCta = document.getElementById("hero-cta-gated");
 
   markFadeInsVisible(gated ?? undefined);
   markFadeInsVisible(heroPitch ?? undefined);
   markFadeInsVisible(heroTrust ?? undefined);
+  markFadeInsVisible(heroCta ?? undefined);
 
   initFadeIn(gated ?? undefined);
   initFadeIn(heroPitch ?? undefined);
   initFadeIn(heroTrust ?? undefined);
+  initFadeIn(heroCta ?? undefined);
 }
 
 bindCheckoutLinks();
