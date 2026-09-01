@@ -48,6 +48,7 @@ declare namespace YT {
     unMute(): void;
     setVolume(volume: number): void;
     getCurrentTime(): number;
+    getDuration(): number;
     getPlayerState(): PlayerState;
     destroy(): void;
   }
