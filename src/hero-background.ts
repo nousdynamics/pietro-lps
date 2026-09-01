@@ -262,11 +262,16 @@ export function initHeroBackground(): void {
   if (!gridCanvas || !hoverCanvas || !noiseCanvas) return;
 
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const isMobile = window.matchMedia("(max-width: 640px)").matches;
   const squareSize = 44;
   const gridOffsetRef = { current: { x: 0, y: 0 } };
 
-  initOffsetAnimation(gridOffsetRef, "diagonal", 0.6, squareSize, !reducedMotion);
+  initOffsetAnimation(gridOffsetRef, "diagonal", isMobile ? 0.35 : 0.6, squareSize, !reducedMotion);
   initMovingGrid(gridCanvas, gridOffsetRef, squareSize, !reducedMotion);
-  initHoverGrid(hoverCanvas, hero, gridOffsetRef, squareSize);
-  initNoiseCanvas(noiseCanvas, reducedMotion ? 12 : 2, reducedMotion ? 10 : 18);
+  if (!isMobile) initHoverGrid(hoverCanvas, hero, gridOffsetRef, squareSize);
+  initNoiseCanvas(
+    noiseCanvas,
+    reducedMotion ? 12 : isMobile ? 8 : 2,
+    reducedMotion ? 8 : isMobile ? 10 : 18,
+  );
 }
