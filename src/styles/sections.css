@@ -317,7 +317,7 @@
   .hero__trust {
     margin-top: 0;
     margin-bottom: 0;
-    font-size: 0.72rem;
+    font-size: 10px;
     font-weight: 600;
     color: color-mix(in srgb, var(--color-papel) 86%, transparent);
     letter-spacing: 0.05em;
