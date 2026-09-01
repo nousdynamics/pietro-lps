@@ -255,12 +255,12 @@
 
   .hero__intro {
     margin: var(--stack-loose) 0 var(--stack-normal);
-    font-size: 1rem;
+    font-size: 11px;
     font-weight: 600;
     color: var(--color-papel);
     text-align: center;
     order: 4;
-    line-height: 1.5;
+    line-height: 1.45;
     text-shadow: 0 1px 10px rgba(0, 0, 0, 0.45);
   }
 
@@ -279,30 +279,30 @@
   .hero__benefits li {
     flex-direction: row;
     align-items: flex-start;
-    gap: var(--space-4);
-    padding: var(--space-5) 0;
+    gap: var(--space-3);
+    padding: var(--space-4) 0;
     border: 0;
     border-radius: 0;
     background: transparent;
     color: color-mix(in srgb, var(--color-papel) 96%, white);
-    font-size: 0.9375rem;
+    font-size: 10px;
     font-weight: 500;
-    line-height: 1.62;
+    line-height: 1.5;
     text-align: left;
     border-bottom: 1px solid color-mix(in srgb, #fff 14%, transparent);
   }
 
   .hero__benefit-icon {
     flex-shrink: 0;
-    width: 2rem;
-    height: 2rem;
-    margin: 0.15rem 0 0;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin: 0.05rem 0 0;
     color: #ecc98a;
   }
 
   .hero__benefit-icon svg {
-    width: 1.35rem;
-    height: 1.35rem;
+    width: 1.05rem;
+    height: 1.05rem;
     stroke-width: 2;
   }
 
