@@ -14,6 +14,7 @@ import {
   vslRevealStorageKey,
   youtubeId,
 } from "./config.ts";
+import { initHeroBackground } from "./hero-background.ts";
 
 let contentRevealed = false;
 let timePollId: number | null = null;
@@ -217,6 +218,7 @@ function initFaqA11y(): void {
 
 bindCheckoutLinks();
 restoreRevealFromSession();
+initHeroBackground();
 initVslPlayer();
 initFadeIn(document.querySelector(".hero") ?? undefined);
 initFaqA11y();
