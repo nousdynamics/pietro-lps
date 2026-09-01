@@ -244,7 +244,8 @@
   }
 
   .vsl {
-    order: 4;
+    order: 2;
+    margin-bottom: var(--stack-tight);
   }
 
   .vsl__control-icon {
@@ -253,12 +254,12 @@
   }
 
   .hero__intro {
-    margin: var(--stack-normal) 0 var(--stack-normal);
+    margin: var(--stack-loose) 0 var(--stack-normal);
     font-size: 1rem;
     font-weight: 600;
     color: var(--color-papel);
     text-align: center;
-    order: 2;
+    order: 4;
     line-height: 1.5;
     text-shadow: 0 1px 10px rgba(0, 0, 0, 0.45);
   }
@@ -268,7 +269,7 @@
     grid-template-columns: 1fr;
     gap: 0;
     margin-bottom: var(--stack-loose);
-    order: 3;
+    order: 5;
     padding: var(--space-2) var(--space-3);
     border-radius: var(--radius-md);
     background: color-mix(in srgb, var(--color-tinta) 72%, transparent);
@@ -314,14 +315,15 @@
   }
 
   .hero__trust {
-    margin-top: var(--stack-normal);
+    margin-top: 0;
+    margin-bottom: 0;
     font-size: 0.72rem;
     font-weight: 600;
     color: color-mix(in srgb, var(--color-papel) 86%, transparent);
     letter-spacing: 0.05em;
     line-height: 1.55;
     text-align: center;
-    order: 5;
+    order: 3;
     text-shadow: 0 1px 8px rgba(0, 0, 0, 0.45);
   }
 }
