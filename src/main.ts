@@ -8,7 +8,15 @@ import "./styles/tokens.css";
 import "./styles/base.css";
 import "./styles/sections.css";
 
-import { checkoutUrl, youtubeId } from "./config.ts";
+import {
+  checkoutUrl,
+  vslRevealAtSeconds,
+  vslRevealStorageKey,
+  youtubeId,
+} from "./config.ts";
+
+let contentRevealed = false;
+let timePollId: number | null = null;
 
 function bindCheckoutLinks(): void {
   const links = document.querySelectorAll<HTMLAnchorElement>("[data-checkout]");
@@ -17,40 +25,141 @@ function bindCheckoutLinks(): void {
   }
 }
 
+function revealPageContent(): void {
+  if (contentRevealed) return;
+
+  contentRevealed = true;
+  document.body.classList.add("is-content-revealed");
+  sessionStorage.setItem(vslRevealStorageKey, "1");
+
+  const gated = document.getElementById("lp-gated");
+  if (gated) gated.hidden = false;
+
+  initFadeIn(gated ?? undefined);
+}
+
+function restoreRevealFromSession(): void {
+  if (sessionStorage.getItem(vslRevealStorageKey) !== "1") return;
+  revealPageContent();
+}
+
+function loadYoutubeIframeApi(): Promise<void> {
+  return new Promise((resolve) => {
+    if (window.YT?.Player) {
+      resolve();
+      return;
+    }
+
+    const previousReady = window.onYouTubeIframeAPIReady;
+    window.onYouTubeIframeAPIReady = () => {
+      previousReady?.();
+      resolve();
+    };
+
+    if (document.getElementById("youtube-iframe-api")) return;
+
+    const tag = document.createElement("script");
+    tag.id = "youtube-iframe-api";
+    tag.src = "https://www.youtube.com/iframe_api";
+    document.head.append(tag);
+  });
+}
+
+function stopTimePoll(): void {
+  if (timePollId === null) return;
+  window.clearInterval(timePollId);
+  timePollId = null;
+}
+
+function startTimePoll(player: YT.Player): void {
+  stopTimePoll();
+
+  timePollId = window.setInterval(() => {
+    if (player.getCurrentTime() >= vslRevealAtSeconds) {
+      revealPageContent();
+      stopTimePoll();
+    }
+  }, 400);
+}
+
 function initYoutubeFacade(): void {
   const facade = document.querySelector<HTMLButtonElement>("[data-youtube-facade]");
   if (!facade) return;
 
-  const loadPlayer = (): void => {
+  const loadPlayer = async (): Promise<void> => {
     const wrap = facade.parentElement;
     if (!wrap) return;
 
-    const iframe = document.createElement("iframe");
-    iframe.src = `https://www.youtube-nocookie.com/embed/${youtubeId}?autoplay=1&rel=0&controls=0&modestbranding=1&disablekb=1&fs=0&iv_load_policy=3&playsinline=1&cc_load_policy=0`;
-    iframe.title = "VSL Criador Consciente";
-    iframe.allow =
-      "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
-    iframe.allowFullscreen = true;
-    iframe.loading = "eager";
+    await loadYoutubeIframeApi();
 
-    wrap.replaceChildren(iframe);
+    const playerHost = document.createElement("div");
+    playerHost.id = "youtube-player";
+    wrap.replaceChildren(playerHost);
+
+    new YT.Player("youtube-player", {
+      videoId: youtubeId,
+      playerVars: {
+        autoplay: 1,
+        rel: 0,
+        controls: 0,
+        modestbranding: 1,
+        disablekb: 1,
+        fs: 0,
+        iv_load_policy: 3,
+        playsinline: 1,
+        cc_load_policy: 0,
+        enablejsapi: 1,
+        origin: window.location.origin,
+      },
+      events: {
+        onReady: (event) => {
+          event.target.playVideo();
+        },
+        onStateChange: (event) => {
+          if (event.target.getCurrentTime() >= vslRevealAtSeconds) {
+            revealPageContent();
+            stopTimePoll();
+            return;
+          }
+
+          if (event.data === YT.PlayerState.PLAYING) {
+            startTimePoll(event.target);
+            return;
+          }
+
+          if (
+            event.data === YT.PlayerState.PAUSED ||
+            event.data === YT.PlayerState.ENDED ||
+            event.data === YT.PlayerState.BUFFERING
+          ) {
+            stopTimePoll();
+          }
+        },
+      },
+    });
   };
 
-  facade.addEventListener("click", loadPlayer, { once: true });
+  facade.addEventListener("click", () => {
+    void loadPlayer();
+  }, { once: true });
+
   facade.addEventListener(
     "keydown",
     (event: KeyboardEvent) => {
       if (event.key === "Enter" || event.key === " ") {
         event.preventDefault();
-        loadPlayer();
+        void loadPlayer();
       }
     },
     { once: true },
   );
 }
 
-function initFadeIn(): void {
-  const nodes = document.querySelectorAll<HTMLElement>(".fade-in");
+function initFadeIn(scope?: ParentNode): void {
+  const nodes = scope
+    ? scope.querySelectorAll<HTMLElement>(".fade-in")
+    : document.querySelectorAll<HTMLElement>(".fade-in");
+
   if (!nodes.length) return;
 
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -85,6 +194,7 @@ function initFaqA11y(): void {
 }
 
 bindCheckoutLinks();
+restoreRevealFromSession();
 initYoutubeFacade();
-initFadeIn();
+initFadeIn(document.querySelector(".hero") ?? undefined);
 initFaqA11y();

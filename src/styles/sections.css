@@ -49,6 +49,10 @@
   color: #fff;
 }
 
+.hero__title-accent {
+  color: var(--color-ouro);
+}
+
 .hero__intro {
   max-width: 34rem;
   margin: var(--stack-loose) auto var(--stack-normal);
