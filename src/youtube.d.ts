@@ -19,6 +19,7 @@ declare namespace YT {
     playsinline?: 0 | 1;
     cc_load_policy?: 0 | 1;
     enablejsapi?: 0 | 1;
+    mute?: 0 | 1;
     origin?: string;
   }
 
@@ -42,7 +43,12 @@ declare namespace YT {
   class Player {
     constructor(elementId: string, options: PlayerOptions);
     playVideo(): void;
+    pauseVideo(): void;
+    mute(): void;
+    unMute(): void;
+    setVolume(volume: number): void;
     getCurrentTime(): number;
+    getPlayerState(): PlayerState;
     destroy(): void;
   }
 }

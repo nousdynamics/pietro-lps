@@ -17,6 +17,7 @@ import {
 
 let contentRevealed = false;
 let timePollId: number | null = null;
+let vslPlayer: YT.Player | null = null;
 
 function bindCheckoutLinks(): void {
   const links = document.querySelectorAll<HTMLAnchorElement>("[data-checkout]");
@@ -36,6 +37,13 @@ function revealPageContent(): void {
   if (gated) gated.hidden = false;
 
   initFadeIn(gated ?? undefined);
+
+  const heroExtras = document.querySelectorAll<HTMLElement>(
+    ".hero__intro, .hero__benefits, .hero__trust",
+  );
+  for (const node of heroExtras) {
+    node.classList.add("is-visible");
+  }
 }
 
 function restoreRevealFromSession(): void {
@@ -82,24 +90,46 @@ function startTimePoll(player: YT.Player): void {
   }, 400);
 }
 
-function initYoutubeFacade(): void {
-  const facade = document.querySelector<HTMLButtonElement>("[data-youtube-facade]");
-  if (!facade) return;
+function handlePlayerStateChange(player: YT.Player, state: YT.PlayerState): void {
+  if (player.getCurrentTime() >= vslRevealAtSeconds) {
+    revealPageContent();
+    stopTimePoll();
+  }
 
-  const loadPlayer = async (): Promise<void> => {
-    const wrap = facade.parentElement;
-    if (!wrap) return;
+  if (state === YT.PlayerState.PLAYING) {
+    startTimePoll(player);
+    return;
+  }
 
+  if (
+    state === YT.PlayerState.PAUSED ||
+    state === YT.PlayerState.ENDED ||
+    state === YT.PlayerState.BUFFERING
+  ) {
+    stopTimePoll();
+  }
+}
+
+function setVslPausedUi(wrap: HTMLElement, shield: HTMLButtonElement, paused: boolean): void {
+  wrap.classList.toggle("is-paused", paused);
+  shield.setAttribute("aria-label", paused ? "Reproduzir vídeo" : "Pausar vídeo");
+}
+
+function initVslPlayer(): void {
+  const wrap = document.querySelector<HTMLElement>("[data-vsl-wrap]");
+  const shield = document.querySelector<HTMLButtonElement>("[data-vsl-shield]");
+  if (!wrap || !shield) return;
+
+  let audioUnmuted = false;
+
+  const bootPlayer = async (): Promise<void> => {
     await loadYoutubeIframeApi();
 
-    const playerHost = document.createElement("div");
-    playerHost.id = "youtube-player";
-    wrap.replaceChildren(playerHost);
-
-    new YT.Player("youtube-player", {
+    vslPlayer = new YT.Player("youtube-player", {
       videoId: youtubeId,
       playerVars: {
         autoplay: 1,
+        mute: 1,
         rel: 0,
         controls: 0,
         modestbranding: 1,
@@ -114,45 +144,37 @@ function initYoutubeFacade(): void {
       events: {
         onReady: (event) => {
           event.target.playVideo();
+          setVslPausedUi(wrap, shield, false);
         },
         onStateChange: (event) => {
-          if (event.target.getCurrentTime() >= vslRevealAtSeconds) {
-            revealPageContent();
-            stopTimePoll();
-            return;
-          }
-
-          if (event.data === YT.PlayerState.PLAYING) {
-            startTimePoll(event.target);
-            return;
-          }
-
-          if (
-            event.data === YT.PlayerState.PAUSED ||
-            event.data === YT.PlayerState.ENDED ||
-            event.data === YT.PlayerState.BUFFERING
-          ) {
-            stopTimePoll();
-          }
+          const paused =
+            event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED;
+          setVslPausedUi(wrap, shield, paused);
+          handlePlayerStateChange(event.target, event.data);
         },
       },
     });
   };
 
-  facade.addEventListener("click", () => {
-    void loadPlayer();
-  }, { once: true });
+  shield.addEventListener("click", () => {
+    if (!vslPlayer) return;
 
-  facade.addEventListener(
-    "keydown",
-    (event: KeyboardEvent) => {
-      if (event.key === "Enter" || event.key === " ") {
-        event.preventDefault();
-        void loadPlayer();
-      }
-    },
-    { once: true },
-  );
+    if (!audioUnmuted) {
+      vslPlayer.unMute();
+      vslPlayer.setVolume(100);
+      audioUnmuted = true;
+    }
+
+    const state = vslPlayer.getPlayerState();
+    if (state === YT.PlayerState.PLAYING || state === YT.PlayerState.BUFFERING) {
+      vslPlayer.pauseVideo();
+      return;
+    }
+
+    vslPlayer.playVideo();
+  });
+
+  void bootPlayer();
 }
 
 function initFadeIn(scope?: ParentNode): void {
@@ -195,6 +217,6 @@ function initFaqA11y(): void {
 
 bindCheckoutLinks();
 restoreRevealFromSession();
-initYoutubeFacade();
+initVslPlayer();
 initFadeIn(document.querySelector(".hero") ?? undefined);
 initFaqA11y();
