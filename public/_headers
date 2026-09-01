@@ -1,17 +1,17 @@
 # Long-cache hashed assets from Vite
-/assets/*
+/criador-consciente/assets/*
   Cache-Control: public, max-age=31536000, immutable
 
 # HTML: short cache so updates propagate
-/
+/criador-consciente/
   Cache-Control: public, max-age=0, must-revalidate
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=()
 
-/*
+/criador-consciente/*
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
 
-/images/*
+/criador-consciente/images/*
   Cache-Control: public, max-age=604800
