@@ -76,6 +76,10 @@
   flex-direction: column;
 }
 
+.hero__pitch {
+  display: contents;
+}
+
 @media (min-width: 641px) {
   .hero__title {
     order: 1;
@@ -253,13 +257,26 @@
     height: 3.5rem;
   }
 
+  .hero__pitch {
+    display: block;
+    order: 4;
+    margin-bottom: var(--stack-loose);
+    padding: var(--space-3);
+    border-radius: var(--radius-md);
+    background: color-mix(in srgb, var(--color-tinta) 72%, transparent);
+    border: 1px solid color-mix(in srgb, #fff 8%, transparent);
+    --hero-benefit-icon-col: 1.5rem;
+    --hero-benefit-gap: var(--space-3);
+  }
+
   .hero__intro {
-    margin: var(--stack-loose) 0 var(--stack-normal);
+    display: block;
+    margin: 0 0 var(--space-3);
+    padding-left: calc(var(--hero-benefit-icon-col) + var(--hero-benefit-gap));
     font-size: 11px;
     font-weight: 600;
     color: var(--color-papel);
-    text-align: center;
-    order: 4;
+    text-align: left;
     line-height: 1.45;
     text-shadow: 0 1px 10px rgba(0, 0, 0, 0.45);
   }
@@ -268,18 +285,19 @@
     display: grid;
     grid-template-columns: 1fr;
     gap: 0;
-    margin-bottom: var(--stack-loose);
-    order: 5;
-    padding: var(--space-2) var(--space-3);
-    border-radius: var(--radius-md);
-    background: color-mix(in srgb, var(--color-tinta) 72%, transparent);
-    border: 1px solid color-mix(in srgb, #fff 8%, transparent);
+    margin-bottom: 0;
+    order: unset;
+    padding: 0;
+    border-radius: 0;
+    background: transparent;
+    border: 0;
   }
 
   .hero__benefits li {
-    flex-direction: row;
-    align-items: flex-start;
-    gap: var(--space-3);
+    display: grid;
+    grid-template-columns: var(--hero-benefit-icon-col) minmax(0, 1fr);
+    align-items: center;
+    column-gap: var(--hero-benefit-gap);
     padding: var(--space-4) 0;
     border: 0;
     border-radius: 0;
@@ -294,9 +312,10 @@
 
   .hero__benefit-icon {
     flex-shrink: 0;
-    width: 1.5rem;
-    height: 1.5rem;
-    margin: 0.05rem 0 0;
+    width: var(--hero-benefit-icon-col);
+    height: var(--hero-benefit-icon-col);
+    margin: 0;
+    place-self: center;
     color: #ecc98a;
   }
 
