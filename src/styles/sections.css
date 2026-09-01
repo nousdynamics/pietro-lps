@@ -85,15 +85,15 @@
     order: 2;
   }
 
-  .hero__intro {
+  .hero__trust {
     order: 3;
   }
 
-  .hero__benefits {
+  .hero__intro {
     order: 4;
   }
 
-  .hero__trust {
+  .hero__benefits {
     order: 5;
   }
 }
@@ -211,10 +211,15 @@
     margin-bottom: var(--stack-normal);
     font-size: calc(clamp(1.28rem, 6vw, 1.68rem) - 4px);
     line-height: 1.28;
+    order: 1;
   }
 
   .vsl__player-wrap {
     border-radius: var(--radius-md);
+  }
+
+  .vsl {
+    order: 4;
   }
 
   .vsl__control-icon {
@@ -227,6 +232,7 @@
     font-size: 0.9rem;
     color: #fff;
     text-align: center;
+    order: 2;
   }
 
   .hero__benefits {
@@ -234,6 +240,7 @@
     grid-template-columns: 1fr;
     gap: 0;
     margin-bottom: var(--stack-normal);
+    order: 3;
   }
 
   .hero__benefits li {
@@ -275,6 +282,7 @@
     margin-top: var(--stack-tight);
     font-size: 0.65rem;
     color: color-mix(in srgb, #fff 78%, transparent);
+    order: 5;
   }
 }
 
