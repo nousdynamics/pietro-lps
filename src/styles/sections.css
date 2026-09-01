@@ -208,6 +208,10 @@
 }
 
 @media (max-width: 640px) {
+  body:not(.is-content-revealed) .is-mobile-gated {
+    display: none !important;
+  }
+
   .hero {
     padding: 12px 0 var(--space-10);
   }

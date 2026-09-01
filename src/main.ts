@@ -19,6 +19,16 @@ function bindCheckoutLinks(): void {
   }
 }
 
+function isMobileViewport(): boolean {
+  return window.matchMedia("(max-width: 640px)").matches;
+}
+
+function isMobileGatedHidden(node: HTMLElement): boolean {
+  if (!isMobileViewport()) return false;
+  if (document.body.classList.contains("is-content-revealed")) return false;
+  return Boolean(node.closest(".is-mobile-gated"));
+}
+
 function markFadeInsVisible(scope?: ParentNode): void {
   if (!scope) return;
 
@@ -27,7 +37,7 @@ function markFadeInsVisible(scope?: ParentNode): void {
   }
 }
 
-function initFadeIn(scope?: ParentNode, skipHidden = false): void {
+function initFadeIn(scope?: ParentNode, skipGated = false): void {
   const nodes = scope
     ? scope.querySelectorAll<HTMLElement>(".fade-in")
     : document.querySelectorAll<HTMLElement>(".fade-in");
@@ -51,7 +61,7 @@ function initFadeIn(scope?: ParentNode, skipHidden = false): void {
   );
 
   for (const node of nodes) {
-    if (skipHidden && node.closest("[hidden]")) continue;
+    if (skipGated && isMobileGatedHidden(node)) continue;
     if (node.classList.contains("is-visible")) continue;
     observer.observe(node);
   }

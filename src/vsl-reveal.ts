@@ -29,12 +29,6 @@ export function revealPageContent(onRevealed?: () => void): void {
   const gated = document.getElementById("lp-gated");
   if (gated) gated.removeAttribute("hidden");
 
-  const heroPitch = document.getElementById("hero-pitch-gated");
-  if (heroPitch) heroPitch.removeAttribute("hidden");
-
-  const heroTrust = document.getElementById("hero-trust-gated");
-  if (heroTrust) heroTrust.removeAttribute("hidden");
-
   stopRevealWatcher();
   (onRevealed ?? onContentRevealedCallback)?.();
 }
