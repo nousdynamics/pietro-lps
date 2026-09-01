@@ -288,6 +288,13 @@ p {
   transform: none;
 }
 
+body.is-content-revealed #lp-gated .fade-in,
+body.is-content-revealed #hero-pitch-gated .fade-in,
+body.is-content-revealed #hero-trust-gated.fade-in {
+  opacity: 1;
+  transform: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .fade-in {
     opacity: 1;

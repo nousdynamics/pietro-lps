@@ -13,6 +13,7 @@ let timeRevealAtSeconds = vslRevealAtSeconds;
 let phraseRevealAtSeconds: number | null = vslRevealPhraseAtSeconds;
 
 let revealPollId: number | null = null;
+let onContentRevealedCallback: (() => void) | undefined;
 
 export function isContentRevealed(): boolean {
   return contentRevealed;
@@ -28,8 +29,14 @@ export function revealPageContent(onRevealed?: () => void): void {
   const gated = document.getElementById("lp-gated");
   if (gated) gated.removeAttribute("hidden");
 
+  const heroPitch = document.getElementById("hero-pitch-gated");
+  if (heroPitch) heroPitch.removeAttribute("hidden");
+
+  const heroTrust = document.getElementById("hero-trust-gated");
+  if (heroTrust) heroTrust.removeAttribute("hidden");
+
   stopRevealWatcher();
-  onRevealed?.();
+  (onRevealed ?? onContentRevealedCallback)?.();
 }
 
 export function restoreRevealFromSession(onRevealed?: () => void): void {
@@ -178,6 +185,8 @@ export function loadYoutubeIframeApi(): Promise<void> {
 }
 
 export function initVslReveal(onRevealed?: () => void): void {
+  onContentRevealedCallback = onRevealed;
+
   const wrap = document.querySelector<HTMLElement>("[data-vsl-wrap]");
   const shield = document.querySelector<HTMLButtonElement>("[data-vsl-shield]");
   if (!wrap || !shield) return;

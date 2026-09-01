@@ -19,7 +19,15 @@ function bindCheckoutLinks(): void {
   }
 }
 
-function initFadeIn(scope?: ParentNode): void {
+function markFadeInsVisible(scope?: ParentNode): void {
+  if (!scope) return;
+
+  for (const node of scope.querySelectorAll<HTMLElement>(".fade-in")) {
+    node.classList.add("is-visible");
+  }
+}
+
+function initFadeIn(scope?: ParentNode, skipHidden = false): void {
   const nodes = scope
     ? scope.querySelectorAll<HTMLElement>(".fade-in")
     : document.querySelectorAll<HTMLElement>(".fade-in");
@@ -42,7 +50,11 @@ function initFadeIn(scope?: ParentNode): void {
     { rootMargin: "0px 0px -8% 0px", threshold: 0.12 },
   );
 
-  for (const node of nodes) observer.observe(node);
+  for (const node of nodes) {
+    if (skipHidden && node.closest("[hidden]")) continue;
+    if (node.classList.contains("is-visible")) continue;
+    observer.observe(node);
+  }
 }
 
 function initFaqA11y(): void {
@@ -59,13 +71,22 @@ function initFaqA11y(): void {
 
 function onContentRevealed(): void {
   const gated = document.getElementById("lp-gated");
+  const heroPitch = document.getElementById("hero-pitch-gated");
+  const heroTrust = document.getElementById("hero-trust-gated");
+
+  markFadeInsVisible(gated ?? undefined);
+  markFadeInsVisible(heroPitch ?? undefined);
+  markFadeInsVisible(heroTrust ?? undefined);
+
   initFadeIn(gated ?? undefined);
+  initFadeIn(heroPitch ?? undefined);
+  initFadeIn(heroTrust ?? undefined);
 }
 
 bindCheckoutLinks();
 initHeroBackground();
 initVslReveal(onContentRevealed);
-initFadeIn(document.querySelector(".hero") ?? undefined);
+initFadeIn(document.querySelector(".hero") ?? undefined, true);
 initFaqA11y();
 
 // Ensure gated fade-ins appear if session already unlocked before observer ran.

@@ -100,6 +100,10 @@
   .hero__benefits {
     order: 5;
   }
+
+  .hero__cta {
+    order: 6;
+  }
 }
 
 .hero__title {
@@ -171,6 +175,14 @@
   bottom: var(--space-2);
   width: 1px;
   background: var(--stroke-subtle-dark);
+}
+
+.hero__cta {
+  display: inline-flex;
+  width: min(100%, 34rem);
+  margin: var(--stack-loose) auto 0;
+  text-align: center;
+  white-space: normal;
 }
 
 .hero__trust {
@@ -331,6 +343,14 @@
 
   .hero__benefits li::after {
     display: none;
+  }
+
+  .hero__cta {
+    width: 100%;
+    margin-top: var(--space-4);
+    font-size: 0.68rem;
+    line-height: 1.35;
+    padding-inline: var(--space-3);
   }
 
   .hero__trust {
