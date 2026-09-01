@@ -38,13 +38,6 @@ function revealPageContent(): void {
   if (gated) gated.hidden = false;
 
   initFadeIn(gated ?? undefined);
-
-  const heroExtras = document.querySelectorAll<HTMLElement>(
-    ".hero__intro, .hero__benefits, .hero__trust",
-  );
-  for (const node of heroExtras) {
-    node.classList.add("is-visible");
-  }
 }
 
 function restoreRevealFromSession(): void {
