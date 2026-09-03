@@ -537,6 +537,16 @@
   color: #14121b;
 }
 
+.compare__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  margin: 0 auto var(--stack-normal);
+  border-radius: var(--radius-md);
+}
+
 .compare__card--after {
   background: #14121b;
   color: #fff;
