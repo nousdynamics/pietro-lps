@@ -23,10 +23,10 @@ function isMobileViewport(): boolean {
   return window.matchMedia("(max-width: 640px)").matches;
 }
 
-function isMobileGatedHidden(node: HTMLElement): boolean {
-  if (!isMobileViewport()) return false;
+function isGatedHidden(node: HTMLElement): boolean {
   if (document.body.classList.contains("is-content-revealed")) return false;
-  return Boolean(node.closest(".is-mobile-gated"));
+  if (node.closest(".is-gated")) return true;
+  return isMobileViewport() && Boolean(node.closest(".is-mobile-gated"));
 }
 
 function markFadeInsVisible(scope?: ParentNode): void {
@@ -61,7 +61,7 @@ function initFadeIn(scope?: ParentNode, skipGated = false): void {
   );
 
   for (const node of nodes) {
-    if (skipGated && isMobileGatedHidden(node)) continue;
+    if (skipGated && isGatedHidden(node)) continue;
     if (node.classList.contains("is-visible")) continue;
     observer.observe(node);
   }

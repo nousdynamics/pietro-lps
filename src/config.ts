@@ -1,5 +1,5 @@
 /** Central config — update checkout URL in one place */
-export const checkoutUrl = "https://checkout.placeholder";
+export const checkoutUrl = "https://pay.hotmart.com/R107220493U?off=770nta93";
 export const youtubeId = "vtUKqz4rRMQ";
 export const guaranteeEmail = "sixsevenplataformadigital@gmail.com";
 

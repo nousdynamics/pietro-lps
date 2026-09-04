@@ -190,6 +190,11 @@
   margin-inline: auto;
 }
 
+/* Gated em qualquer viewport: some ate o reveal do video */
+body:not(.is-content-revealed) .is-gated {
+  display: none !important;
+}
+
 .hero__cta--mobile {
   display: none;
 }

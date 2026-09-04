@@ -290,7 +290,9 @@ p {
 
 body.is-content-revealed #lp-gated .fade-in,
 body.is-content-revealed .is-mobile-gated .fade-in,
-body.is-content-revealed .is-mobile-gated.fade-in {
+body.is-content-revealed .is-mobile-gated.fade-in,
+body.is-content-revealed .is-gated .fade-in,
+body.is-content-revealed .is-gated.fade-in {
   opacity: 1;
   transform: none;
 }
