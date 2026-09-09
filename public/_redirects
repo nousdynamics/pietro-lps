@@ -1,2 +1,8 @@
-/criador-consciente /criador-consciente/ 301
-/criador-consciente/aberta /criador-consciente/aberta/ 301
+/ /criadores-conscientes/ 301
+
+/criadores-conscientes /criadores-conscientes/ 301
+/criadores-conscientes/aberta /criadores-conscientes/aberta/ 301
+
+# Slug antigo -> novo, para links ja publicados
+/criador-consciente /criadores-conscientes/ 301
+/criador-consciente/* /criadores-conscientes/:splat 301

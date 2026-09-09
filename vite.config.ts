@@ -1,9 +1,9 @@
 import { defineConfig } from "vite";
 
 export default defineConfig({
-  base: "/criador-consciente/",
+  base: "/criadores-conscientes/",
   build: {
-    outDir: "dist/criador-consciente",
+    outDir: "dist/criadores-conscientes",
     cssCodeSplit: false,
     assetsInlineLimit: 4096,
     emptyOutDir: true,
