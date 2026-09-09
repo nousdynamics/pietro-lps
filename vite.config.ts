@@ -8,6 +8,10 @@ export default defineConfig({
     assetsInlineLimit: 4096,
     emptyOutDir: true,
     rollupOptions: {
+      input: {
+        main: "index.html",
+        aberta: "aberta/index.html",
+      },
       output: {
         manualChunks: undefined,
       },

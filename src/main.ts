@@ -10,7 +10,7 @@ import "./styles/sections.css";
 
 import { checkoutUrl } from "./config.ts";
 import { initHeroBackground } from "./hero-background.ts";
-import { initVslReveal } from "./vsl-reveal.ts";
+import { initVslReveal, revealPageContent } from "./vsl-reveal.ts";
 
 function bindCheckoutLinks(): void {
   const links = document.querySelectorAll<HTMLAnchorElement>("[data-checkout]");
@@ -98,6 +98,12 @@ function onContentRevealed(): void {
 
 bindCheckoutLinks();
 initHeroBackground();
+
+// Versao aberta (aberta/index.html): tudo visivel no load, sem esperar o video.
+if (document.body.dataset.reveal === "open") {
+  revealPageContent(onContentRevealed, false);
+}
+
 initVslReveal(onContentRevealed);
 initFadeIn(document.querySelector(".hero") ?? undefined, true);
 initFaqA11y();

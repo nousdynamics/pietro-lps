@@ -14,12 +14,14 @@ export function isContentRevealed(): boolean {
   return contentRevealed;
 }
 
-export function revealPageContent(onRevealed?: () => void): void {
+export function revealPageContent(onRevealed?: () => void, persist = true): void {
   if (contentRevealed) return;
 
   contentRevealed = true;
   document.body.classList.add("is-content-revealed");
-  sessionStorage.setItem(vslRevealStorageKey, "1");
+  // persist=false na versao aberta: sessionStorage e compartilhado entre as
+  // duas paginas, entao gravar aqui destravaria a pagina com gate.
+  if (persist) sessionStorage.setItem(vslRevealStorageKey, "1");
 
   const gated = document.getElementById("lp-gated");
   if (gated) gated.removeAttribute("hidden");
