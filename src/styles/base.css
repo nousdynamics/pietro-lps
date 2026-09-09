@@ -264,6 +264,41 @@ p {
   border-color: color-mix(in srgb, var(--color-ouro) 90%, white);
 }
 
+.btn--verde {
+  border-color: var(--color-verde);
+  background: var(--color-verde);
+  color: #08240f;
+}
+
+.btn--verde:hover,
+.btn--verde:focus-visible {
+  background: color-mix(in srgb, var(--color-verde) 88%, white);
+  border-color: color-mix(in srgb, var(--color-verde) 88%, white);
+  color: #08240f;
+}
+
+@keyframes btn-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-verde) 55%, transparent);
+  }
+  50% {
+    transform: scale(1.035);
+    box-shadow: 0 0 0 14px color-mix(in srgb, var(--color-verde) 0%, transparent);
+  }
+}
+
+.btn--pulse {
+  animation: btn-pulse 2.2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn--pulse {
+    animation: none;
+  }
+}
+
 .btn--dark {
   border-color: var(--color-tinta);
   color: var(--text-on-light);

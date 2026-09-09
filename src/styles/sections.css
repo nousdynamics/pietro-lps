@@ -195,28 +195,6 @@
   text-align: center;
 }
 
-.hero__offer-from {
-  color: var(--text-on-dark-subtle);
-  text-decoration: line-through;
-  font-size: 0.9rem;
-}
-
-.hero__offer-installments {
-  margin-top: var(--space-2);
-  color: var(--text-on-dark-muted);
-  font-size: 0.78rem;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
-}
-
-.hero__offer-price {
-  margin: var(--space-1) 0;
-  font-family: var(--font-display);
-  font-size: clamp(2.1rem, 5vw, 2.85rem);
-  line-height: 1;
-  color: var(--color-papel);
-}
-
 .hero__offer-cash {
   color: var(--text-on-dark-muted);
   font-size: 0.9rem;
@@ -729,14 +707,18 @@ body:not(.is-content-revealed) .is-gated {
 
 /* ——— About ——— */
 .about {
-  max-width: 34rem;
+  max-width: 58rem;
   margin-inline: auto;
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr);
+  gap: var(--space-8);
+  align-items: center;
 }
 
 .about__avatar {
-  width: min(100%, 12rem);
-  aspect-ratio: 1 / 2;
-  margin: 0 auto var(--stack-normal);
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  margin: 0;
   border-radius: var(--radius-lg);
   border: 1.5px solid var(--stroke-accent);
   overflow: hidden;
@@ -746,8 +728,12 @@ body:not(.is-content-revealed) .is-gated {
 .about__avatar img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  object-position: center center;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.about__text {
+  text-align: left;
 }
 
 .about__name {
@@ -1086,6 +1072,12 @@ body:not(.is-content-revealed) .is-gated {
   .offer__guarantee-box strong {
     font-size: 1.35rem;
     text-align: center;
+  }
+
+  .about {
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+    justify-items: center;
   }
 
   .about__avatar {
