@@ -1,4 +1,5 @@
 type Offset = { x: number; y: number };
+type CanvasLayer = { resize: () => void; destroy: () => void };
 type Direction = "right" | "left" | "up" | "down" | "diagonal";
 
 const BRAND = {
@@ -18,8 +19,6 @@ function setHiDPICanvas(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D
 
   canvas.width = Math.floor(cw * dpr);
   canvas.height = Math.floor(ch * dpr);
-  canvas.style.width = `${cw}px`;
-  canvas.style.height = `${ch}px`;
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 }
 
@@ -30,9 +29,9 @@ function originFromOffset(offset: Offset, cell: number): Offset {
   };
 }
 
-function initNoiseCanvas(canvas: HTMLCanvasElement, refresh = 2, alpha = 18): () => void {
+function initNoiseCanvas(canvas: HTMLCanvasElement, refresh = 2, alpha = 18): CanvasLayer {
   const ctx = canvas.getContext("2d", { alpha: true });
-  if (!ctx) return () => undefined;
+  if (!ctx) return { resize: () => undefined, destroy: () => undefined };
 
   let frame = 0;
   let rafId = 0;
@@ -68,9 +67,12 @@ function initNoiseCanvas(canvas: HTMLCanvasElement, refresh = 2, alpha = 18): ()
   loop();
   window.addEventListener("resize", resize);
 
-  return () => {
-    window.removeEventListener("resize", resize);
-    cancelAnimationFrame(rafId);
+  return {
+    resize,
+    destroy: () => {
+      window.removeEventListener("resize", resize);
+      cancelAnimationFrame(rafId);
+    },
   };
 }
 
@@ -79,9 +81,9 @@ function initMovingGrid(
   gridOffsetRef: { current: Offset },
   squareSize: number,
   animate: boolean,
-): () => void {
+): CanvasLayer {
   const ctx = canvas.getContext("2d");
-  if (!ctx) return () => undefined;
+  if (!ctx) return { resize: () => undefined, destroy: () => undefined };
 
   let rafId = 0;
 
@@ -117,15 +119,20 @@ function initMovingGrid(
 
   const resize = (): void => {
     setHiDPICanvas(canvas, ctx);
+    // sem animacao nao ha loop de rAF para repintar sozinho
+    if (!animate) draw();
   };
 
   resize();
   draw();
   window.addEventListener("resize", resize);
 
-  return () => {
-    window.removeEventListener("resize", resize);
-    cancelAnimationFrame(rafId);
+  return {
+    resize,
+    destroy: () => {
+      window.removeEventListener("resize", resize);
+      cancelAnimationFrame(rafId);
+    },
   };
 }
 
@@ -134,9 +141,9 @@ function initHoverGrid(
   hero: HTMLElement,
   gridOffsetRef: { current: Offset },
   squareSize: number,
-): () => void {
+): CanvasLayer {
   const ctx = canvas.getContext("2d");
-  if (!ctx) return () => undefined;
+  if (!ctx) return { resize: () => undefined, destroy: () => undefined };
 
   let rafId = 0;
   let hovered: { x: number; y: number } | null = null;
@@ -198,11 +205,14 @@ function initHoverGrid(
   hero.addEventListener("mousemove", onMouseMove);
   hero.addEventListener("mouseleave", onMouseLeave);
 
-  return () => {
-    window.removeEventListener("resize", resize);
-    hero.removeEventListener("mousemove", onMouseMove);
-    hero.removeEventListener("mouseleave", onMouseLeave);
-    cancelAnimationFrame(rafId);
+  return {
+    resize,
+    destroy: () => {
+      window.removeEventListener("resize", resize);
+      hero.removeEventListener("mousemove", onMouseMove);
+      hero.removeEventListener("mouseleave", onMouseLeave);
+      cancelAnimationFrame(rafId);
+    },
   };
 }
 
@@ -267,11 +277,24 @@ export function initHeroBackground(): void {
   const gridOffsetRef = { current: { x: 0, y: 0 } };
 
   initOffsetAnimation(gridOffsetRef, "diagonal", isMobile ? 0.35 : 0.6, squareSize, !reducedMotion);
-  initMovingGrid(gridCanvas, gridOffsetRef, squareSize, !reducedMotion);
-  if (!isMobile) initHoverGrid(hoverCanvas, hero, gridOffsetRef, squareSize);
-  initNoiseCanvas(
-    noiseCanvas,
-    reducedMotion ? 12 : isMobile ? 8 : 2,
-    reducedMotion ? 8 : isMobile ? 10 : 18,
-  );
+
+  const layers: CanvasLayer[] = [
+    initMovingGrid(gridCanvas, gridOffsetRef, squareSize, !reducedMotion),
+    initNoiseCanvas(
+      noiseCanvas,
+      reducedMotion ? 12 : isMobile ? 8 : 2,
+      reducedMotion ? 8 : isMobile ? 10 : 18,
+    ),
+  ];
+  if (!isMobile) layers.push(initHoverGrid(hoverCanvas, hero, gridOffsetRef, squareSize));
+
+  // O hero cresce sem a janela mudar de tamanho: reveal do conteudo, fontes
+  // carregando, o player entrando. So o listener de resize da janela deixava
+  // os canvas com a medida antiga, descobrindo parte do fundo.
+  if (typeof ResizeObserver !== "undefined") {
+    const observer = new ResizeObserver(() => {
+      for (const layer of layers) layer.resize();
+    });
+    observer.observe(root);
+  }
 }
