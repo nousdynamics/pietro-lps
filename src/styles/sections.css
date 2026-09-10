@@ -187,22 +187,12 @@
 
 .hero__offer {
   width: min(100%, 26rem);
-  margin-inline: auto;
-  padding: var(--space-6) var(--space-5);
-  border: 1px solid var(--stroke-accent-soft);
-  border-radius: var(--radius-lg);
-  background: var(--surface-accent);
-  text-align: center;
-}
-
-.hero__offer-cash {
-  color: var(--text-on-dark-muted);
-  font-size: 0.9rem;
+  margin: var(--stack-loose) auto 0;
 }
 
 .hero__offer .hero__cta {
   width: 100%;
-  margin-top: var(--stack-normal);
+  margin-top: 0;
 }
 
 /* Gated em qualquer viewport: some ate o reveal do video */
@@ -295,8 +285,8 @@ body:not(.is-content-revealed) .is-gated {
 
   .hero__offer {
     order: 3;
+    margin-top: var(--stack-normal);
     margin-bottom: var(--stack-normal);
-    padding: var(--space-5) var(--space-4);
   }
 
   .vsl__control-icon {
