@@ -1077,5 +1077,8 @@ body:not(.is-content-revealed) .is-gated {
 
   .about__avatar {
     width: 100%;
+    /* altura fixa no mobile; o aspect-ratio global mandaria na altura */
+    aspect-ratio: auto;
+    height: 430px;
   }
 }
