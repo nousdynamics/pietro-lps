@@ -707,8 +707,8 @@ body:not(.is-content-revealed) .is-gated {
 
 .about__avatar {
   width: 100%;
-  /* a foto e 800x800; qualquer outra proporcao corta as bordas */
-  aspect-ratio: 1 / 1;
+  /* a foto e 800x1200; qualquer outra proporcao corta as bordas */
+  aspect-ratio: 2 / 3;
   margin: 0;
   border-radius: var(--radius-lg);
   border: 1.5px solid var(--stroke-accent);
@@ -1076,6 +1076,6 @@ body:not(.is-content-revealed) .is-gated {
   }
 
   .about__avatar {
-    width: min(68vw, 14rem);
+    width: 100%;
   }
 }
