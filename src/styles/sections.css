@@ -707,7 +707,8 @@ body:not(.is-content-revealed) .is-gated {
 
 .about__avatar {
   width: 100%;
-  aspect-ratio: 4 / 5;
+  /* a foto e 800x800; qualquer outra proporcao corta as bordas */
+  aspect-ratio: 1 / 1;
   margin: 0;
   border-radius: var(--radius-lg);
   border: 1.5px solid var(--stroke-accent);
@@ -724,6 +725,10 @@ body:not(.is-content-revealed) .is-gated {
 
 .about__text {
   text-align: left;
+}
+
+.about__eyebrow {
+  margin-bottom: var(--stack-normal);
 }
 
 .about__name {
