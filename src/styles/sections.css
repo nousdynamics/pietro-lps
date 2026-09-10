@@ -1036,18 +1036,6 @@ body:not(.is-content-revealed) .is-gated {
     max-width: none;
   }
 
-  .hero__benefits li,
-  .compare__card li,
-  .module__desc,
-  .bonus__desc,
-  .about__bio,
-  .offer__includes li,
-  .offer__guarantee-box p,
-  .final-cta__ps,
-  .final-cta__trust {
-    text-align: left;
-  }
-
   .compare__label {
     display: block;
     font-size: 0.875rem;
@@ -1066,6 +1054,10 @@ body:not(.is-content-revealed) .is-gated {
 
   .offer__guarantee-box strong {
     font-size: 1.35rem;
+    text-align: center;
+  }
+
+  .about__text {
     text-align: center;
   }
 
